@@ -16,13 +16,21 @@ export default function About() {
       {/* ===== HERO ===== */}
       <motion.div
         className="max-w-6xl mx-auto text-center"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
       >
         <motion.h1
-          className="text-4xl md:text-6xl font-extrabold text-cyan-400 mb-4 drop-shadow"
-          animate={{ textShadow: "0px 0px 15px rgba(34,211,238,0.6)" }}
+          className="text-4xl md:text-6xl font-extrabold text-cyan-400 mb-4"
+          animate={{
+            textShadow: [
+              "0 0 10px rgba(34,211,238,0.3)",
+              "0 0 20px rgba(34,211,238,0.6)",
+              "0 0 10px rgba(34,211,238,0.3)",
+            ],
+          }}
+          transition={{ duration: 3, repeat: Infinity }}
         >
           About PhishShield
         </motion.h1>
@@ -39,52 +47,45 @@ export default function About() {
         className="max-w-5xl mx-auto mt-16 grid md:grid-cols-2 gap-10"
         initial="hidden"
         whileInView="visible"
-        transition={{ staggerChildren: 0.2 }}
+        viewport={{ once: true }}
+        transition={{ staggerChildren: 0.15 }}
       >
-
-        <StoryCard
-          title="The Problem"
-          icon={<MdWarning />}
-        >
+        <StoryCard title="The Problem" icon={<MdWarning />}>
           Millions fall victim to phishing emails every day.
           Fake websites and malicious attachments destroy trust and steal data.
         </StoryCard>
 
-        <StoryCard
-          title="Our Solution"
-          icon={<FaShieldAlt />}
-        >
+        <StoryCard title="Our Solution" icon={<FaShieldAlt />}>
           PhishShield analyzes emails in seconds to detect threats
           before damage happens — smart protection without complexity.
         </StoryCard>
 
-        <StoryCard
-          title="Privacy First"
-          icon={<FaLock />}
-        >
+        <StoryCard title="Privacy First" icon={<FaLock />}>
           Zero storage. Zero tracking. Zero data retention.
           Your scans exist only for analysis — then disappear forever.
         </StoryCard>
 
-        <StoryCard
-          title="Built for Everyone"
-          icon={<FaGlobe />}
-        >
+        <StoryCard title="Built for Everyone" icon={<FaGlobe />}>
           No setup required. No expertise needed.
           Paste, scan, stay safe — cybersecurity for everyone.
         </StoryCard>
-
       </motion.div>
 
 
       {/* ===== MISSION ===== */}
       <motion.div
         className="max-w-5xl mx-auto mt-20 bg-black/70 border border-cyan-400/20 rounded-2xl p-10 text-center shadow-2xl backdrop-blur-xl"
-        initial={{ opacity: 0, scale: 0.9 }}
+        initial={{ opacity: 0, scale: 0.85 }}
         whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        <FaBullseye className="text-cyan-400 text-4xl mx-auto mb-4 animate-pulse" />
+        <motion.div
+          animate={{ rotate: [0, 10, -10, 0] }}
+          transition={{ repeat: Infinity, duration: 4 }}
+        >
+          <FaBullseye className="text-cyan-400 text-4xl mx-auto mb-4" />
+        </motion.div>
 
         <h2 className="text-3xl font-bold text-cyan-400 mb-4">
           Our Mission
@@ -103,14 +104,13 @@ export default function About() {
         className="max-w-6xl mx-auto mt-20 grid sm:grid-cols-2 md:grid-cols-4 gap-6"
         initial="hidden"
         whileInView="visible"
-        transition={{ staggerChildren: 0.2 }}
+        viewport={{ once: true }}
+        transition={{ staggerChildren: 0.15 }}
       >
-
         <Value icon={<FaBolt />} label="Fast" desc="Instant scanning" />
         <Value icon={<MdSecurity />} label="Secure" desc="Safe analysis" />
         <Value icon={<FaUserShield />} label="Private" desc="Data never saved" />
         <Value icon={<FaBullseye />} label="Accurate" desc="Smart detection" />
-
       </motion.div>
 
     </section>
@@ -121,13 +121,20 @@ export default function About() {
 /* ===== STORY CARD ===== */
 const StoryCard = ({ icon, title, children }) => (
   <motion.div
-    whileHover={{ scale: 1.06, y: -8 }}
+    initial={{ opacity: 0, y: 25 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}   // ✅ MOBILE TAP EFFECT
+    viewport={{ once: true }}
     className="group bg-black/70 border border-white/10 rounded-xl p-8 backdrop-blur-lg shadow-xl hover:border-cyan-400/50 transition-all"
   >
-
-    <div className="text-cyan-400 text-4xl mb-4 group-hover:scale-125 transition-transform">
+    <motion.div
+      className="text-cyan-400 text-4xl mb-4"
+      animate={{ y: [0, -3, 0] }}   // ✅ FLOATING ANIMATION
+      transition={{ repeat: Infinity, duration: 2 }}
+    >
       {icon}
-    </div>
+    </motion.div>
 
     <h3 className="text-cyan-300 text-xl font-semibold mb-2">
       {title}
@@ -136,7 +143,6 @@ const StoryCard = ({ icon, title, children }) => (
     <p className="text-gray-400 text-sm leading-relaxed">
       {children}
     </p>
-
   </motion.div>
 );
 
@@ -144,19 +150,25 @@ const StoryCard = ({ icon, title, children }) => (
 /* ===== VALUE ===== */
 const Value = ({ icon, label, desc }) => (
   <motion.div
-    whileHover={{ scale: 1.08 }}
-    className="bg-black/60 border border-white/10 rounded-xl p-6 text-center shadow-lg hover:border-cyan-400/40 transition"
+    initial={{ opacity: 0, scale: 0.9 }}
+    whileInView={{ opacity: 1, scale: 1 }}
+    whileHover={{ scale: 1.1 }}
+    whileTap={{ scale: 0.95 }}     // ✅ MOBILE SUPPORT
+    viewport={{ once: true }}
+    className="bg-black/60 border border-white/10 rounded-xl p-6 text-center shadow-lg hover:border-cyan-400/50 transition"
   >
-
-    <div className="text-cyan-400 text-3xl mb-2 animate-pulse">
+    <motion.div
+      className="text-cyan-400 text-3xl mb-2"
+      animate={{ scale: [1, 1.2, 1] }}
+      transition={{ repeat: Infinity, duration: 3 }}
+    >
       {icon}
-    </div>
+    </motion.div>
 
     <h4 className="text-white font-semibold">{label}</h4>
 
     <p className="text-gray-400 text-sm mt-1">
       {desc}
     </p>
-
   </motion.div>
 );
