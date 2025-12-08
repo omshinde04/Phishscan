@@ -1,86 +1,110 @@
 import { motion } from "framer-motion";
+import {
+  FaDatabase,
+  FaLock,
+  FaUserShield,
+  FaCookieBite,
+  FaMapMarkedAlt,
+  FaShareAlt,
+  FaFileAlt,
+  FaShieldAlt,
+} from "react-icons/fa";
 
 export default function Privacy() {
   return (
-    <section className="min-h-screen bg-linearfrom-black to-gray-900 text-white px-6 py-24">
+    <section className="min-h-screen bg-linear-to-b from-black via-gray-900 to-black text-white px-6 py-24">
 
       <motion.div
         className="max-w-5xl mx-auto"
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
       >
 
         {/* TITLE */}
-        <h1 className="text-4xl md:text-5xl font-extrabold text-cyan-400 mb-4 text-center">
-          Privacy Policy
-        </h1>
-        <p className="text-gray-300 text-center max-w-2xl mx-auto mb-12">
-          Your privacy matters to us. PhishShield is designed to protect your emails
-          without collecting personal information.
-        </p>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center"
+        >
+          <h1 className="text-4xl md:text-5xl font-extrabold text-cyan-400 drop-shadow">
+            Privacy Policy
+          </h1>
+          <p className="text-gray-300 max-w-2xl mx-auto mt-4 mb-14">
+            PhishShield is built with privacy-first architecture.  
+            We protect your emails — not harvest your data.
+          </p>
+        </motion.div>
+
 
         {/* POLICIES */}
-        <div className="space-y-8">
+        <div className="grid md:grid-cols-2 gap-6">
 
           <Policy
-            icon="🚫"
-            title="We Do NOT Store Any Data"
-            desc="Nothing you scan is saved. Emails, files, screenshots, and analysis reports
-                  are processed temporarily and erased automatically."
+            icon={<FaDatabase />}
+            title="No Data Stored"
+            desc="Emails, screenshots or files are never saved. Everything is scanned in memory and deleted instantly."
           />
 
           <Policy
-            icon="🔐"
-            title="Data Is Always Encrypted"
-            desc="All email content and attachments are processed in secure environments
-                  with encrypted transfers and isolated scanning systems."
+            icon={<FaLock />}
+            title="Encrypted Processing"
+            desc="All data passes through secure encrypted channels and isolated scanning systems."
           />
 
           <Policy
-            icon="👤"
-            title="No Account Needed"
-            desc="No sign-up. No profile creation. No login. We don't want your identity —
-                  we only scan threats."
+            icon={<FaUserShield />}
+            title="Anonymous Usage"
+            desc="No login, no signup, no identity tracking. You remain completely anonymous."
           />
 
           <Policy
-            icon="🍪"
-            title="No Cookies & No Tracking"
-            desc="We do not use tracking tools, analytics services, or advertisements that follow you around."
+            icon={<FaCookieBite />}
+            title="No Tracking"
+            desc="We don’t use analytics tools, fingerprinting, cookies or advertisements."
           />
 
           <Policy
-            icon="📍"
-            title="No Location or IP Tracking"
-            desc="We do not collect IP addresses or attempt to determine your physical location."
+            icon={<FaMapMarkedAlt />}
+            title="No Location Logs"
+            desc="IP addresses and geographic data are never collected."
           />
 
           <Policy
-            icon="🧩"
-            title="Third-Party Sharing"
-            desc="We never sell or share any information with third parties — because we don’t store anything in the first place."
+            icon={<FaShareAlt />}
+            title="No Third-Party Sharing"
+            desc="Your information is never sold, rented or transferred — because it is never stored."
           />
 
           <Policy
-            icon="📜"
-            title="Transparency Promise"
-            desc="Our system is designed with privacy-first architecture. Everything runs in a temporary environment
-                  and auto-cleans after every scan."
+            icon={<FaFileAlt />}
+            title="Temporary Processing"
+            desc="All scans run inside auto-cleared environments to avoid residual data."
+          />
+
+          <Policy
+            icon={<FaShieldAlt />}
+            title="Transparency Guarantee"
+            desc="We commit to privacy-first development and zero data retention."
           />
 
         </div>
 
-        {/* TRUST BOX */}
+
+        {/* PROMISE BOX */}
         <motion.div
-          className="mt-16 bg-black/60 border border-cyan-400/20 p-6 rounded-xl text-center"
+          className="mt-16 bg-black/70 border border-cyan-400/30 rounded-xl p-8 text-center shadow-xl"
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
+          whileInView={{ opacity: 1, scale: 1.02 }}
+          transition={{ duration: 0.8 }}
         >
-          <h3 className="text-cyan-300 text-xl font-semibold mb-2">Our Promise to You</h3>
-          <p className="text-gray-300 text-sm">
-            We built PhishShield to protect people, not data. Your information stays yours —
-            always.
+          <FaShieldAlt className="text-4xl text-cyan-400 mx-auto mb-4" />
+          <h3 className="text-cyan-300 text-xl font-semibold">
+            Our Promise To You
+          </h3>
+          <p className="text-gray-300 text-sm mt-3 max-w-xl mx-auto">
+            Your data never belongs to us — because we never take it.
+            PhishShield exists to protect users, not monetize them.
           </p>
         </motion.div>
 
@@ -90,22 +114,36 @@ export default function Privacy() {
 }
 
 
+
+/* ================================= */
 /* 🔹 POLICY CARD */
+/* ================================= */
 
 const Policy = ({ icon, title, desc }) => (
   <motion.div
-    whileHover={{ scale: 1.04 }}
-    transition={{ type: "spring", stiffness: 200 }}
-    className="relative bg-black/70 p-6 rounded-xl border border-white/10"
+    whileHover={{ scale: 1.05, y: -4 }}
+    transition={{ type: "spring", stiffness: 220 }}
+    className="relative bg-black/70 p-6 rounded-xl border border-white/10 shadow-lg hover:border-cyan-400/50 group overflow-hidden"
   >
 
-    <div className="flex gap-4">
-      <div className="text-3xl">{icon}</div>
+    {/* GLOW EFFECT */}
+    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.3),transparent_70%)]"></div>
+
+    <div className="relative z-10 flex gap-4">
+
+      <div className="text-3xl text-cyan-400">
+        {icon}
+      </div>
 
       <div>
-        <h3 className="text-cyan-300 font-semibold text-lg mb-1">{title}</h3>
-        <p className="text-gray-400 text-sm leading-relaxed">{desc}</p>
+        <h3 className="text-cyan-300 font-semibold text-lg mb-1">
+          {title}
+        </h3>
+        <p className="text-gray-400 text-sm leading-relaxed">
+          {desc}
+        </p>
       </div>
+
     </div>
 
   </motion.div>

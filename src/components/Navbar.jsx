@@ -7,6 +7,7 @@ import {
   HiShieldCheck,
   HiDocumentText,
 } from "react-icons/hi";
+import { FaShieldAlt } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { NavLink } from "react-router-dom";
 
@@ -14,10 +15,10 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { name: "Home", href: "/", icon: <HiHome size={20} /> },
-    { name: "How it Works", href: "/how-it-works", icon: <HiInformationCircle size={20} /> },
-    { name: "Privacy", href: "/privacy", icon: <HiShieldCheck size={20} /> },
-    { name: "About", href: "/about", icon: <HiDocumentText size={20} /> },
+    { name: "Home", href: "/", icon: <HiHome size={18} /> },
+    { name: "How it Works", href: "/how-it-works", icon: <HiInformationCircle size={18} /> },
+    { name: "Privacy", href: "/privacy", icon: <HiShieldCheck size={18} /> },
+    { name: "About", href: "/about", icon: <HiDocumentText size={18} /> },
   ];
 
   useEffect(() => {
@@ -27,61 +28,87 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="w-full fixed top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/10">
+    <nav className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-xl border-b border-white/10 shadow-2xl">
+
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center h-16">
 
-        {/* LOGO */}
-        <motion.div whileHover={{ scale: 1.05 }} className="text-cyan-400 text-2xl font-bold">
-          <NavLink to="/">PhishShield</NavLink>
+        {/* 🛡 LOGO */}
+        <motion.div
+          whileHover={{ scale: 1.07 }}
+          className="flex items-center gap-2 text-cyan-400 text-2xl font-bold tracking-wide"
+        >
+          <FaShieldAlt className="text-cyan-400 drop-shadow-glow" />
+          <NavLink to="/" className="hover:text-cyan-300 transition">
+            PhishShield
+          </NavLink>
         </motion.div>
 
-        {/* DESKTOP */}
-        <ul className="hidden md:flex gap-8 text-white font-semibold">
+
+        {/* 🖥 DESKTOP MENU */}
+        <ul className="hidden md:flex gap-8 text-white font-medium text-sm">
+
           {navLinks.map((link) => (
             <NavLink
               key={link.name}
               to={link.href}
               className={({ isActive }) =>
-                `flex items-center gap-1 ${
+                `group flex items-center gap-2 transition ${
                   isActive ? "text-cyan-400" : "hover:text-cyan-300"
                 }`
               }
             >
-              {link.icon} {link.name}
+              <span className="group-hover:scale-110 transition">
+                {link.icon}
+              </span>
+              <span>{link.name}</span>
             </NavLink>
           ))}
+
         </ul>
 
-        {/* MOBILE BUTTON */}
+
+        {/* 📱 MOBILE BUTTON */}
         <div className="md:hidden">
-          <button onClick={() => setIsOpen(!isOpen)} className="text-white">
+          <motion.button
+            onClick={() => setIsOpen(!isOpen)}
+            whileTap={{ scale: 0.85 }}
+            className="text-white hover:text-cyan-400 transition"
+          >
             {isOpen ? <HiX size={26} /> : <HiMenu size={26} />}
-          </button>
+          </motion.button>
         </div>
       </div>
 
-      {/* MOBILE MENU */}
+
+      {/* 📱 MOBILE MENU */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -30 }}
+            initial={{ opacity: 0, y: -25 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="md:hidden bg-black/95 py-6"
+            transition={{ duration: 0.25 }}
+            className="md:hidden bg-black/95 backdrop-blur-lg py-6"
           >
             {navLinks.map((link) => (
               <NavLink
                 key={link.name}
                 to={link.href}
                 onClick={() => setIsOpen(false)}
-                className="block py-3 text-center text-lg text-white hover:text-cyan-300"
+                className={({ isActive }) =>
+                  `flex justify-center items-center gap-2 py-3 text-lg transition ${
+                    isActive ? "text-cyan-400" : "hover:text-cyan-300 text-white"
+                  }`
+                }
               >
+                {link.icon}
                 {link.name}
               </NavLink>
             ))}
           </motion.div>
         )}
       </AnimatePresence>
+
     </nav>
   );
 };

@@ -12,7 +12,8 @@ import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="bg-gray-900 min-h-screen">
+    <div className="min-h-screen bg-linear-to-b from-black via-gray-900 to-black">
+
       <Navbar />
 
       <Routes>

@@ -8,3 +8,9 @@
 .upload-btn {
   @apply inline-block bg-black/60 border border-gray-700 px-4 py-2 rounded-lg cursor-pointer text-gray-400 hover:text-white transition;
 }
+
+
+
+.drop-shadow-glow {
+  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.7));
+}
