@@ -1,270 +1,148 @@
-  import React, { useState } from "react";
-  import { motion } from "framer-motion";
-  import ScanButton from "./ScanButton";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import ScanButton from "./ScanButton";
 
-  const EmailForm = () => {
-    const [formData, setFormData] = useState({
-      from: "",
-      to: "",
-      subject: "",
-      date: "",
-      mailedBy: "",
-      signedBy: "",
-      security: "",
-      body: "",
-    });
+const EmailForm = () => {
+  const [formData, setFormData] = useState({
+    from: "",
+    to: "",
+    subject: "",
+    date: "",
+    mailedBy: "",
+    signedBy: "",
+    security: "",
+    body: "",
+  });
 
-    const [files, setFiles] = useState([]);
-    const [errors, setErrors] = useState({});
+  const [files, setFiles] = useState([]);
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-    const handleFileChange = (e) => {
-      setFiles(Array.from(e.target.files));
-    };
+  const handleFileChange = (e) => {
+    setFiles(Array.from(e.target.files));
+  };
 
-    const removeFile = (index) => {
-      setFiles(files.filter((_, i) => i !== index));
-    };
+  const removeFile = (index) => {
+    setFiles(files.filter((_, i) => i !== index));
+  };
 
-    const validate = () => {
-      let newErrors = {};
+  const validate = () => {
+    const e = {};
 
-      if (!formData.from.trim()) newErrors.from = "Sender email is required.";
-      if (!formData.body.trim()) newErrors.body = "Email message is required.";
+    if (!formData.from.trim()) e.from = "Sender email is required";
+    if (!formData.body.trim()) e.body = "Email content is required";
 
-      if (formData.from && !formData.from.includes("@"))
-        newErrors.from = "Enter a valid email address.";
+    if (formData.from && !/\S+@\S+\.\S+/.test(formData.from))
+      e.from = "Invalid email format";
 
-      if (formData.to && !formData.to.includes("@"))
-        newErrors.to = "Enter a valid email address.";
+    if (formData.to && !/\S+@\S+\.\S+/.test(formData.to))
+      e.to = "Invalid email format";
 
-      setErrors(newErrors);
-      return Object.keys(newErrors).length === 0;
-    };
+    setErrors(e);
+    return Object.keys(e).length === 0;
+  };
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      if (!validate()) return;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+    alert("🚀 Email submitted for AI analysis (Mock)");
+  };
 
-      alert("✅ Scan Started Successfully (Mock)");
-    };
-
-    return (
-      <section
-        id="scan-section"
-        className="w-full py-16 bg-linear-to-b from-black/90 to-black text-white flex justify-center px-4"
+  return (
+    <section id="scan-section" className="w-full py-16 bg-linear-to-b from-black to-black text-white flex justify-center px-4">
+      <motion.div
+        className="w-full max-w-5xl bg-black/80 backdrop-blur rounded-2xl p-6 sm:p-10 shadow-2xl border border-white/10"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
       >
-        <motion.div
-          className="w-full max-w-5xl bg-black/70 backdrop-blur-md rounded-2xl p-6 sm:p-10 shadow-2xl border border-white/10"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
 
-          {/* Header */}
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-cyan-400">
-              PhishShield Email Scanner
-            </h2>
-            <p className="text-gray-400 mt-2">
-              Paste your email details below and upload files if needed.  
-              We *never* save your data.
-            </p>
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-bold text-cyan-400">
+            PhishShield Analysis Console
+          </h2>
+          <p className="text-gray-400 mt-2">
+            Your email is analyzed securely in real-time — no data is stored.
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+
+          <InputField label="Sender Email *" hint="Official sender address as shown in inbox" example="Example: support@bank.com" error={errors.from}>
+            <input name="from" value={formData.from} onChange={handleChange} className={`input ${errors.from && "ring-red-500"}`} />
+          </InputField>
+
+          <InputField label="Recipient Email" hint="The email address which received this message" example="Example: you@gmail.com" error={errors.to}>
+            <input name="to" value={formData.to} onChange={handleChange} className="input" />
+          </InputField>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            <InputField label="Subject" hint="Exact subject as shown" example="Security Alert">
+              <input name="subject" value={formData.subject} onChange={handleChange} className="input" />
+            </InputField>
+
+            <InputField label="Received Date" hint="Timestamp from email" example="15 Mar 2025, 10:30 AM">
+              <input name="date" value={formData.date} onChange={handleChange} className="input" />
+            </InputField>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-
-            {/* FROM */}
-            <InputField
-              label="Who sent you this email? *"
-              hint="Enter the sender’s email address exactly as shown in your inbox."
-              example="Example: no-reply@amazon.in"
-              error={errors.from}
-            >
-              <input
-                type="text"
-                name="from"
-                value={formData.from}
-                onChange={handleChange}
-                placeholder="sender@example.com"
-                className={`input ${errors.from && "ring-red-500"}`}
-              />
+          <div className="grid md:grid-cols-2 gap-4">
+            <InputField label="Mailed-By" hint="Server name from headers" example="mail.company.com">
+              <input name="mailedBy" value={formData.mailedBy} onChange={handleChange} className="input" />
             </InputField>
 
-            {/* TO */}
-            <InputField
-              label="Which email did receive it?"
-              hint="Your email address where you received this message."
-              example="Example: yourname@gmail.com"
-              error={errors.to}
-            >
-              <input
-                type="text"
-                name="to"
-                value={formData.to}
-                onChange={handleChange}
-                placeholder="your@email.com"
-                className={`input ${errors.to && "ring-red-500"}`}
-              />
+            <InputField label="Signed-By" hint="Signed domain from headers" example="company.com">
+              <input name="signedBy" value={formData.signedBy} onChange={handleChange} className="input" />
             </InputField>
+          </div>
 
-            {/* SUBJECT + DATE */}
-            <div className="grid md:grid-cols-2 gap-4">
-              <InputField
-                label="Email Subject"
-                hint="Write the subject line exactly as you saw it."
-                example="Example: Your account is at risk"
-              >
-                <input
-                  type="text"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  className="input"
-                />
-              </InputField>
+          <InputField label="Security Warnings" hint="Any warnings displayed by your email provider" example="Suspicious login attempt">
+            <input name="security" value={formData.security} onChange={handleChange} className="input" />
+          </InputField>
 
-              <InputField
-                label="Date & Time (optional)"
-                hint="When did you receive this email?"
-                example="Example: 14 Mar 2025, 11:45 AM"
-              >
-                <input
-                  type="text"
-                  name="date"
-                  value={formData.date}
-                  onChange={handleChange}
-                  className="input"
-                />
-              </InputField>
+          <InputField label="Full Email Content *" hint="Entire body of email" example="Remove personal data if needed" error={errors.body}>
+            <textarea name="body" rows={5} value={formData.body} onChange={handleChange} className={`input ${errors.body && "ring-red-500"}`} />
+          </InputField>
+
+          <InputField label="Attachments" hint="Screenshots or files" example="Multiple uploads allowed">
+            <label className="upload-btn">
+              {files.length ? `${files.length} file(s)` : "Upload Files"}
+              <input type="file" multiple hidden onChange={handleFileChange} />
+            </label>
+          </InputField>
+
+          {files.length > 0 && (
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {files.map((file, i) => (
+                <div key={i} className="bg-black/70 rounded-lg relative overflow-hidden">
+                  <p className="text-xs truncate px-2">{file.name}</p>
+                  <button onClick={() => removeFile(i)} type="button" className="absolute top-1 right-1 text-red-400">✕</button>
+                </div>
+              ))}
             </div>
+          )}
 
-            {/* MAILED / SIGNED */}
-            <div className="grid md:grid-cols-2 gap-4">
-              <InputField
-                label="Mailed By"
-                hint="Shown inside email details → ‘mailed-by’"
-                example="Example: server.company.com"
-              >
-                <input
-                  type="text"
-                  name="mailedBy"
-                  value={formData.mailedBy}
-                  onChange={handleChange}
-                  className="input"
-                />
-              </InputField>
+          <div className="text-center pt-6">
+            <ScanButton>Run AI Threat Scan</ScanButton>
+            <p className="text-xs text-gray-500 mt-2">Instant deletion after processing.</p>
+          </div>
 
-              <InputField
-                label="Signed By"
-                hint="Shown inside email details → ‘signed-by’"
-                example="Example: company.com"
-              >
-                <input
-                  type="text"
-                  name="signedBy"
-                  value={formData.signedBy}
-                  onChange={handleChange}
-                  className="input"
-                />
-              </InputField>
-            </div>
-
-            {/* SECURITY */}
-            <InputField
-              label="Warnings or security notes"
-              hint="Any text like ‘This message looks dangerous’ or ‘Encrypted mail’"
-              example="Example: This message might be suspicious"
-            >
-              <input
-                type="text"
-                name="security"
-                value={formData.security}
-                onChange={handleChange}
-                className="input"
-              />
-            </InputField>
-
-            {/* BODY */}
-            <InputField
-              label="Full message text *"
-              hint="Paste the entire message content here."
-              example="Tip: You may remove sensitive data."
-              error={errors.body}
-            >
-              <textarea
-                rows={5}
-                name="body"
-                value={formData.body}
-                onChange={handleChange}
-                className={`input resize-y ${errors.body && "ring-red-500"}`}
-                placeholder="Paste email text here..."
-              />
-            </InputField>
-
-            {/* ATTACHMENTS */}
-            <InputField
-              label="Attachments (optional)"
-              hint="Upload screenshots, PDFs, or files."
-              example="You can upload multiple files"
-            >
-              <label className="upload-btn">
-                {files.length > 0 ? `${files.length} files selected` : "Choose Files"}
-                <input type="file" multiple hidden onChange={handleFileChange} />
-              </label>
-            </InputField>
-
-            {/* FILE PREVIEW */}
-            {files.length > 0 && (
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {files.map((file, i) => {
-                  const img = file.type.startsWith("image")
-                    ? URL.createObjectURL(file)
-                    : null;
-
-                  return (
-                    <div key={i} className="bg-black/80 rounded-lg overflow-hidden relative">
-                      {img ? (
-                        <img src={img} className="h-24 w-full object-cover" />
-                      ) : (
-                        <div className="h-24 flex justify-center items-center text-2xl">📄</div>
-                      )}
-                      <p className="text-xs truncate px-2">{file.name}</p>
-                      <button
-                        onClick={() => removeFile(i)}
-                        type="button"
-                        className="absolute top-1 right-1 text-red-500"
-                      >✕</button>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-
-            {/* SUBMIT */}
-            <div className="text-center pt-4">
-              <ScanButton type="submit">Scan Now</ScanButton>
-              <p className="text-xs text-gray-500 mt-2">Your data is deleted after scan.</p>
-            </div>
-
-          </form>
-        </motion.div>
-      </section>
-    );
-  };
-
-  /* INPUT UI */
-  const InputField = ({ label, hint, example, error, children }) => (
-    <div>
-      <label className="label">{label}</label>
-      {children}
-      <p className="text-xs text-gray-400 mt-1">{hint}</p>
-      <p className="text-xs text-gray-500 italic">{example}</p>
-      {error && <p className="text-red-500 text-xs">{error}</p>}
-    </div>
+        </form>
+      </motion.div>
+    </section>
   );
+};
 
-  export default EmailForm;
+const InputField = ({ label, hint, example, error, children }) => (
+  <div>
+    <label className="label">{label}</label>
+    {children}
+    <p className="text-xs text-gray-400 mt-1">{hint}</p>
+    <p className="text-xs text-gray-500 italic">{example}</p>
+    {error && <p className="text-red-500 text-xs">{error}</p>}
+  </div>
+);
+
+export default EmailForm;
