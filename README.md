@@ -2,7 +2,7 @@
 ### Next-Generation AI-Driven Phishing Detection & Threat Intelligence Platform
 
 <p align="center">
-  <a href="https://phishscan.vercel.app/" target="_blank">🌐 Live Demo</a>
+  <a href="https://phishscan.vercel.app/" target="_blank"><b>🌐 Live Demo</b></a>
   &nbsp;•&nbsp;
   🧠 AI Security Engine
   &nbsp;•&nbsp;
@@ -10,8 +10,8 @@
 </p>
 
 <p align="center">
-  <b>PhishShield</b> is an advanced AI-powered phishing detection system designed to analyze emails using  
-  <b>deep learning, cognitive risk reasoning, attachment intelligence, and explainable security logic</b>.
+  <b>PhishShield</b> is a next-generation AI-powered phishing detection system that analyzes emails using  
+  <b>deep learning, cognitive risk reasoning, attachment intelligence, URL analysis, and explainable security logic</b>.
 </p>
 
 ---
@@ -19,71 +19,69 @@
 ## 🚀 Live Application
 
 🔗 **Frontend (React + Vite)**  
-👉 https://phishscan.vercel.app/
+https://phishscan.vercel.app/
 
 🔗 **AI Engine (FastAPI)**  
-👉 Secure backend microservice
+Secure Python-based microservice
 
 ---
 
 ## 🧠 Why PhishShield?
 
-Traditional phishing systems rely on:
+Traditional phishing detection systems rely on:
 - Static rules
-- Blacklists
 - Keyword matching
+- Blacklists
 
-❌ These approaches fail against:
-- AI-generated phishing emails  
-- Brand impersonation & typosquatting  
-- Malware-based attacks  
-- Psychological social engineering  
+❌ These methods fail against:
+- AI-generated phishing emails
+- Brand impersonation & typosquatting
+- Malware-based attachment attacks
+- Psychological social-engineering techniques
 
-✅ **PhishShield solves this by combining AI + reasoning.**
+✅ **PhishShield combines AI with decision-level security reasoning.**
 
-> **AI predicts. The security engine decides.**
+> **AI predicts the threat.  
+The cognitive security engine decides the response.**
 
 ---
 
 ## 🏗️ System Architecture
 
-┌──────────────┐        ┌───────────────┐        ┌──────────────────┐
-│  React UI    │  —>  │  Node.js API  │  —>  │  AI Engine       │
-│ (Vite)       │        │ (Express)     │        │ (FastAPI)       │
-└──────────────┘        └───────────────┘        └──────────────────┘
+┌──────────────┐ ┌───────────────┐ ┌──────────────────┐
+│ React UI │ --> │ Node.js API │ --> │ AI Engine │
+│ (Vite) │ │ (Express) │ │ (FastAPI) │
+└──────────────┘ └───────────────┘ └──────────────────┘
 │
 ▼
+Hybrid Cognitive Risk Engine.
+
 ---
 
 ## 🔐 Core Features (Implemented)
 
 ### 🧠 AI-Based Email Content Analysis
 - Transformer-based phishing classifier (BERT)
-- Context-aware NLP analysis
+- Context-aware NLP understanding
 - Resistant to obfuscation and AI-generated attacks
 
----
-
-### ⚖️ Hybrid Risk Scoring Engine
+### ⚖️ Hybrid Cognitive Risk Engine
 - Combines:
   - AI confidence score
   - URL intelligence
   - Attachment threat analysis
-  - Header authentication
+  - Sender & header authentication
   - Behavioral heuristics
 - Hard security overrides
 - Aggressive false-positive reduction
-
----
 
 ### 📎 Advanced Attachment Intelligence
 - Detects:
   - Executable malware (`.exe`, `.js`, `.bat`)
   - Double-extension attacks (`invoice.pdf.exe`)
   - Suspicious compressed files
-- Produces structured attachment threat reports
-
----
+- Generates structured attachment threat reports
+- Designed for VirusTotal, ClamAV & sandbox integration
 
 ### 🌐 URL & Link Intelligence
 - Suspicious TLD detection
@@ -92,44 +90,41 @@ Traditional phishing systems rely on:
 - Credential harvesting patterns
 - Brand misuse detection inside URLs
 
----
-
 ### 🧾 Sender & Header Authentication
 - SPF/DKIM-style validation
 - `From` vs `Signed-By` mismatch detection
 - Free email impersonation detection
-- Authentication failure escalation
-
----
+- Authentication failure escalation logic
 
 ### 🧠 Brand Impersonation & Typosquatting Detection
 - Detects look-alike domains:
   - `paypa1`, `g00gle`, `micros0ft`
-- Fuzzy brand similarity logic
+- Fuzzy brand similarity analysis
 - Corporate identity abuse detection
-
----
 
 ### 🔍 Explainable AI Output
 Each scan provides:
 - Risk level (Low / Medium / High)
-- Confidence score
-- Detected issues
-- Human-readable security recommendations
+- Threat confidence score
+- Detected security issues
+- Human-readable recommendations
 
 ---
 
 ## 📊 Sample Threat Output
+
 PHISHING THREAT DETECTED
 Confidence: 90%
 
-Issues:
+Detected Issues:
 • Dangerous executable attachment
 • Brand impersonation detected
 • Header authentication failed
 
-Action:
+Recommended Action:
 Delete immediately. Do not open attachments or click links.
+
+
 ---
 
 ## 🛠️ Technology Stack
@@ -140,8 +135,8 @@ Delete immediately. Do not open attachments or click links.
 | Backend | Node.js, Express |
 | AI Engine | Python, FastAPI |
 | NLP Model | BERT (Transformer) |
-| Security Logic | Hybrid Cognitive Engine |
-| API Testing | Swagger UI |
+| Security Logic | Hybrid Cognitive Risk Engine |
+| Testing | Swagger UI |
 
 ---
 
@@ -150,45 +145,36 @@ Delete immediately. Do not open attachments or click links.
 - Swagger UI for backend testing
 - Real-time UI scanning
 - Safe, Suspicious & Malicious test cases
-- Attachment & URL simulation support
+- URL and attachment simulation support
 
 ---
 
 ## 🧭 Future Roadmap (Patent-Oriented)
 
 ### 🧠 Adaptive Cognitive Risk Engine
-- Simulates human vulnerability
+- Human-psychology inspired risk modeling
 - Emotion-based vectors:
   - Urgency
   - Fear
   - Authority
   - Reward
-- Cognitive risk modeling
-
----
 
 ### 🔁 Adaptive Learning Loop
-- Learns from:
-  - False positives
-  - User interaction
-  - Organization behavior
-- Automatically adjusts risk thresholds
-
----
+- Learns from false positives
+- Adjusts risk thresholds dynamically
+- Organization-specific behavior modeling
 
 ### 🎯 Intent-Based Attack Classification
 Moves from:
-> “Is this phishing?”
+“Is this phishing?”
 
 To:
-> “What is the attacker trying to achieve?”
+“What is the attacker trying to achieve?”
 
 - Credential theft
 - Malware delivery
 - Financial fraud
 - Social engineering
-
----
 
 ### 🧪 Advanced Malware Intelligence
 - VirusTotal API integration
@@ -196,12 +182,10 @@ To:
 - Sandbox execution
 - File hash reputation analysis
 
----
-
 ### 📊 Enterprise Security Dashboard
 - Threat analytics
 - Risk trends
-- User exposure insights
+- User exposure metrics
 - Organization-wide intelligence
 
 ---
@@ -210,10 +194,10 @@ To:
 
 PhishShield demonstrates:
 - Applied AI in cybersecurity
-- Decision-level reasoning
-- Explainable security logic
+- Decision-level threat reasoning
+- Explainable AI security systems
 - Real-world deployable architecture
-- Research + enterprise relevance
+- Strong academic and enterprise relevance
 
 ---
 
@@ -235,10 +219,5 @@ It does not replace certified enterprise security products without further compl
 
 ## ⭐ Final Note
 
-> PhishShield is not just a phishing detector.  
-> It is a **thinking security system**.
-
-
-
-
-
+> **PhishShield is not just a phishing detector.**  
+> **It is a thinking security system.**
